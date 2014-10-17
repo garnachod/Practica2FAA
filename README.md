@@ -1,6 +1,6 @@
-Practica1FAA
+Practica2FAA
 ============
 
-Primera práctica de Fundamentos de Aprendizaje Automático.
+Segunda práctica de Fundamentos de Aprendizaje Automático.
 
-Implementación del clasificador estándar Naïve Bayes y medición del error promedio mediante validación cruzada.
+Implementación del clasificador estándar kNN y comparación de resultados con Weka.
