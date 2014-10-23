@@ -83,13 +83,21 @@ abstract public class Clasificador {
         EstrategiaParticionado estrategia = new ValidacionCruzada();
         Clasificador clasificador = new ClasificadorNaiveBayes();
         Clasificador clasificador2 = new ClasificadorNaiveBayesLaplace();
+        Clasificador clasificador3 = new ClasificadorKNN();
         
+        // NB
         ArrayList<Double> errores = Clasificador.validacion(estrategia, datos, clasificador);
         System.out.println("Los errores con NB son: " + errores);
         System.out.println("Error medio con NB: " + calcularMediaErrores(errores));
         
+        // NB + Laplace
         ArrayList<Double> errores2= Clasificador.validacion(estrategia, datos, clasificador2);
         System.out.println("Los errores con NB + Laplace son: " + errores2);
         System.out.println("Error medio con NB + Laplace: " + calcularMediaErrores(errores2));
+    
+        // kNN
+        ArrayList<Double> errores3= Clasificador.validacion(estrategia, datos, clasificador3);
+        System.out.println("Los errores con kNN son: " + errores3);
+        System.out.println("Error medio con kNN: " + calcularMediaErrores(errores3));
     }
 }
