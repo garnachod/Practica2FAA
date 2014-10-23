@@ -39,8 +39,7 @@ abstract public class Clasificador {
     }
 
     // Realiza una clasificacion utilizando una estrategia de particionado determinada
-    public static ArrayList<Double> validacion(EstrategiaParticionado part, Datos datos,
-            Clasificador clas) {
+    public static ArrayList<Double> validacion(EstrategiaParticionado part, Datos datos, Clasificador clas) {
         ArrayList<Double> errores = new ArrayList<>();
         
         //Creamos las particiones siguiendo la estrategia llamando a datos.creaParticiones
@@ -58,13 +57,13 @@ abstract public class Clasificador {
         
         return errores;
     }
-    private static double calculateAverage(ArrayList <Double> marks) {
+    private static double calcularMediaErrores(ArrayList <Double> errores) {
         Double sum = 0.0;
-        if(!marks.isEmpty()) {
-          for (Double mark : marks) {
-              sum += mark;
+        if(!errores.isEmpty()) {
+          for (Double e : errores) {
+              sum += e;
           }
-          return sum / marks.size();
+          return sum / errores.size();
         }
         return sum;
       }
@@ -87,10 +86,10 @@ abstract public class Clasificador {
         
         ArrayList<Double> errores = Clasificador.validacion(estrategia, datos, clasificador);
         System.out.println("Los errores con NB son: " + errores);
-        System.out.println("Error medio con NB: " + calculateAverage(errores));
+        System.out.println("Error medio con NB: " + calcularMediaErrores(errores));
         
         ArrayList<Double> errores2= Clasificador.validacion(estrategia, datos, clasificador2);
         System.out.println("Los errores con NB + Laplace son: " + errores2);
-        System.out.println("Error medio con NB + Laplace: " + calculateAverage(errores2));
+        System.out.println("Error medio con NB + Laplace: " + calcularMediaErrores(errores2));
     }
 }

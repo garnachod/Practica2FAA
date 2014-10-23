@@ -177,14 +177,23 @@ public class ClasificadorNaiveBayes extends Clasificador{
                     
                     if (fila[i].getTipo().equals(TiposDeAtributos.Continuo)) {
                         /* Si el dato es continuo */
+                        
                         // Sacar la media y varianza del atributo dada la clase claseTest0;
                         double media = this.medias.get(claseTest).get(i);
                         double varianza = this.varianzas.get(claseTest).get(i);
+                        
+                        if (varianza != 0) {
                         // Calcular P(D|H) según func. de dist. de una normal
-                        double elevado = (fila[i].getValorContinuo() - media);
-                        elevado = - (Math.pow(elevado, 2.0) / (double)(2.0 * varianza));
-                        elevado = Math.pow(Math.E, elevado);
-                        probAux = elevado / (double) Math.sqrt(2.0 * Math.PI * varianza);
+                            double elevado = (fila[i].getValorContinuo() - media);
+                            elevado = - (Math.pow(elevado, 2.0) / (double)(2.0 * varianza));
+                            elevado = Math.pow(Math.E, elevado);
+                            probAux = elevado / (double) Math.sqrt(2.0 * Math.PI * varianza);
+                        } else {
+                        // Si la varianza es 0 se ignora esa columna
+                            probAux = 1;
+                        }
+                        
+                        // Acumular en productorio de probabilidades NB
                         if(i == 0){
                             prob = probAux;
                         }else{
