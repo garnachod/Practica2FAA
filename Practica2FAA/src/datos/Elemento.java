@@ -23,4 +23,5 @@ public  abstract class Elemento{
     }
     
     public abstract TiposDeAtributos getTipo();
+    public abstract double diferencia (Elemento e);
 }

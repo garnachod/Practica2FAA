@@ -2,6 +2,7 @@ package clasificadores;
 
 import datos.Datos;
 import datos.Elemento;
+import datos.ElementoContinuo;
 import datos.TiposDeAtributos;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +35,9 @@ public class ClasificadorKNN extends Clasificador {
         this.maximos = new double[this.datosTrain[0].length];
         this.minimos = new double[this.datosTrain[0].length];
         this.calcularMaxMin();
+        
+        // Normalizar
+        this.normalizarDatosTrain();
     }
     
     private double maximo (int columna) {
@@ -75,14 +79,44 @@ public class ClasificadorKNN extends Clasificador {
         }
     }
     
+    private Elemento[] normalizarFila (Elemento[] fila) {
+        for (int i = 0; i < fila.length; i++) {
+            if (fila[i].getTipo() == TiposDeAtributos.Continuo) {
+                double valor = fila[i].getValorContinuo();
+                double min = minimos[i];
+                double max = maximos[i];
+                if ((max - min) != 0) {
+                    double valorNorm = (valor - min) / (max - min);
+                    ((ElementoContinuo)fila[i]).setValor(valorNorm);
+                }
+            }
+        }
+        return fila;
+    }
+    
+    private void normalizarDatosTrain () {
+        for (int i = 0; i < datosTrain.length; i++) {
+            this.normalizarFila(datosTrain[i]);
+        }
+    }
+    
+   /*
+    * Calcula distancia euleriana al cuadrado
+    * @param filaA Fila normalizada
+    * @param filaB Fila normalizada
+    */
     public double distancia (Elemento[] filaA, Elemento[] filaB) {
         double distancia = 0;
         
+        for (int i = 0; i < filaA.length; i++) {
+            distancia += filaA[i].diferencia(filaB[i]);
+        }
         return distancia;
     }
     
     @Override
     public ArrayList<Elemento> clasifica(Datos datosTest) {
+        // Ir normalizando filas !!
         return null;
     }
     

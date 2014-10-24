@@ -41,7 +41,7 @@ public class ElementoNominal extends Elemento {
         return TiposDeAtributos.Nominal;
     }
     
-    public double diferencia(ElementoNominal e) {
+    public double diferencia(Elemento e) {
         if (e.getValorNominal().equals(this.getValorNominal())) {
             return 0.0;
         } else {

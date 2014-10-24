@@ -6,7 +6,7 @@
 package datos;
 
 public class ElementoContinuo extends Elemento {
-    private final double valor;
+    private double valor;
     public ElementoContinuo (double valor) {
        this.valor = valor; 
     }
@@ -40,7 +40,15 @@ public class ElementoContinuo extends Elemento {
         return TiposDeAtributos.Continuo;
     }
     
-    public double diferencia(ElementoContinuo e) {
+    @Override
+    public double diferencia(Elemento e) {
         return Math.pow(e.getValorContinuo() - this.getValorContinuo(), 2);
+    }
+
+    /**
+     * @param valor the valor to set
+     */
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 } 
