@@ -33,10 +33,7 @@ public class ElementoNominal extends Elemento {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        if (this.getValorNominal().equals( ((ElementoNominal)obj).getValorNominal() )) {
-            return true;
-        }
-        return false;
+        return this.getValorNominal().equals( ((ElementoNominal)obj).getValorNominal() );
     }
     
     @Override

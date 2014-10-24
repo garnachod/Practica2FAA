@@ -32,10 +32,7 @@ public class ElementoContinuo extends Elemento {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        if (this.getValorContinuo() != ((ElementoContinuo)obj).getValorContinuo()) {
-            return false;
-        }
-        return true;
+        return this.getValorContinuo() == ((ElementoContinuo)obj).getValorContinuo();
     }
 
     @Override
