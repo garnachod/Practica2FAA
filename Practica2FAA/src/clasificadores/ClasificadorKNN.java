@@ -28,6 +28,10 @@ public class ClasificadorKNN extends Clasificador {
         }
     }
 
+    private void normalizar() {
+        // 
+    }
+    
     @Override
     public ArrayList<Elemento> clasifica(Datos datosTest) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

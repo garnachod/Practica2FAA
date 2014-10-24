@@ -6,14 +6,16 @@
 package datos;
 
 public class ElementoNominal extends Elemento {
-    private String valor;
+    private final String valor;
     public ElementoNominal (String valor) {
         this.valor = valor;
     }
     
+    @Override
     public String getValorNominal() {
         return this.valor;
     }
+    @Override
     public double getValorContinuo() {
         return 0.0;
     }
@@ -40,5 +42,13 @@ public class ElementoNominal extends Elemento {
     @Override
     public TiposDeAtributos getTipo() {
         return TiposDeAtributos.Nominal;
+    }
+    
+    public double diferencia(ElementoNominal e) {
+        if (e.getValorNominal().equals(this.getValorNominal())) {
+            return 0.0;
+        } else {
+            return 1.0;
+        }
     }
 }

@@ -6,13 +6,15 @@
 package datos;
 
 public class ElementoContinuo extends Elemento {
-    private double valor;
+    private final double valor;
     public ElementoContinuo (double valor) {
        this.valor = valor; 
     }
+    @Override
     public String getValorNominal() {
         return "";
     }
+    @Override
     public double getValorContinuo() {
         return this.valor;
     }
@@ -41,4 +43,7 @@ public class ElementoContinuo extends Elemento {
         return TiposDeAtributos.Continuo;
     }
     
+    public double diferencia(ElementoContinuo e) {
+        return Math.pow(e.getValorContinuo() - this.getValorContinuo(), 2);
+    }
 } 
