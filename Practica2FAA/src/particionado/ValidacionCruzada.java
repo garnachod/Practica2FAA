@@ -6,6 +6,8 @@
 package particionado;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ValidacionCruzada implements EstrategiaParticionado {
 
@@ -29,6 +31,7 @@ public class ValidacionCruzada implements EstrategiaParticionado {
             for (int j = i * numFilasGrupo; j < (i+1) * numFilasGrupo; j++) {
                 grupo.add(j);
             }
+            Collections.shuffle(grupo);
             grupos.add(grupo);
         }
         // Añadimos resto a ultimo grupo
@@ -52,6 +55,7 @@ public class ValidacionCruzada implements EstrategiaParticionado {
                     indicesTrain.addAll(grupos.get(j));
                 }
             }
+            
             Particion p = new Particion(indicesTrain, indicesTest);
             particiones.add(p);
         }        

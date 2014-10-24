@@ -8,6 +8,7 @@ package clasificadores;
 import datos.Datos;
 import datos.Elemento;
 import java.util.ArrayList;
+import particionado.DivisionPorcentual;
 import particionado.EstrategiaParticionado;
 import particionado.Particion;
 import particionado.ValidacionCruzada;
@@ -43,7 +44,7 @@ abstract public class Clasificador {
         ArrayList<Double> errores = new ArrayList<>();
         
         //Creamos las particiones siguiendo la estrategia llamando a datos.creaParticiones
-        ArrayList<Particion> particiones = part.crearParticiones(datos.getDatos().length, 5);
+        ArrayList<Particion> particiones = part.crearParticiones(datos.getDatos().length, 2);
 
         //Para validación cruzada: En un bucle hasta nv entrenamos el clasf con la particion de train i(extraerDatosTrain)
                 // y obtenemos el error en la particion test de i (extraerDatosTest)
@@ -80,7 +81,7 @@ abstract public class Clasificador {
         if (datos == null) {
             return;
         }
-        EstrategiaParticionado estrategia = new ValidacionCruzada();
+        EstrategiaParticionado estrategia = new DivisionPorcentual();
         Clasificador clasificador = new ClasificadorNaiveBayes();
         Clasificador clasificador2 = new ClasificadorNaiveBayesLaplace();
         Clasificador clasificador3 = new ClasificadorKNN();

@@ -5,7 +5,9 @@ import datos.Elemento;
 import datos.ElementoContinuo;
 import datos.TiposDeAtributos;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  *
@@ -16,20 +18,22 @@ public class ClasificadorKNN extends Clasificador {
     Elemento datosTrain[][];
     double maximos[];
     double minimos[];
+    int K = 5;
     
     @Override
     public void entrenamiento(Datos datosTrain) {
         // Si aún no se ha entrenado
-        if (this.datosTrain == null) {
+        //if (this.datosTrain == null) {
             this.datosTrain = datosTrain.getDatos();
         
         // Si ya se ha entrenado, añadir nuevos datos al array
-        } else {
+        //} 
+        /*else {
             ArrayList <Elemento[]> ambos = new ArrayList<>();
             Collections.addAll(ambos, this.datosTrain);
             Collections.addAll(ambos, datosTrain.getDatos());
             this.datosTrain = ambos.toArray(new Elemento[ambos.size()][]);
-        }
+        }*/
         
         // Recalcular máximos y mínimos
         this.maximos = new double[this.datosTrain[0].length];
@@ -66,7 +70,7 @@ public class ClasificadorKNN extends Clasificador {
             return;
         
         // Para cada columna
-        for (int i = 0; i < this.datosTrain[0].length; i++) {
+        for (int i = 0; i < (this.datosTrain[0].length - 1); i++) {
             
             // Si es de tipo continuo
             if (datosTrain[0][i].getTipo() == TiposDeAtributos.Continuo) {
@@ -80,7 +84,7 @@ public class ClasificadorKNN extends Clasificador {
     }
     
     private Elemento[] normalizarFila (Elemento[] fila) {
-        for (int i = 0; i < fila.length; i++) {
+        for (int i = 0; i < (fila.length - 1); i++) {
             if (fila[i].getTipo() == TiposDeAtributos.Continuo) {
                 double valor = fila[i].getValorContinuo();
                 double min = minimos[i];
@@ -95,20 +99,21 @@ public class ClasificadorKNN extends Clasificador {
     }
     
     private void normalizarDatosTrain () {
-        for (int i = 0; i < datosTrain.length; i++) {
-            this.normalizarFila(datosTrain[i]);
+        int tam = this.datosTrain.length;
+        for (int i = 0; i < tam; i++) {
+            this.datosTrain[i] = this.normalizarFila(this.datosTrain[i]);
         }
     }
     
    /*
-    * Calcula distancia euleriana al cuadrado
+    * Calcula distancia euclidea al cuadrado
     * @param filaA Fila normalizada
     * @param filaB Fila normalizada
     */
     public double distancia (Elemento[] filaA, Elemento[] filaB) {
         double distancia = 0;
         
-        for (int i = 0; i < filaA.length; i++) {
+        for (int i = 0; i < (filaA.length - 1); i++) {
             distancia += filaA[i].diferencia(filaB[i]);
         }
         return distancia;
@@ -116,8 +121,66 @@ public class ClasificadorKNN extends Clasificador {
     
     @Override
     public ArrayList<Elemento> clasifica(Datos datosTest) {
+        ArrayList<Elemento> clases = new ArrayList();
+        
         // Ir normalizando filas !!
-        return null;
+        for(Elemento[] filaTest: datosTest.getDatos()){
+            filaTest = this.normalizarFila (filaTest);
+            double distancias[] = new double[this.datosTrain.length];
+            int i = 0;
+            
+            //se calculan las distacias
+            for(Elemento[] filaTrain : this.datosTrain){
+                distancias[i] = this.distancia(filaTest, filaTrain);
+                System.out.println(distancias[i]);
+                i++;
+            }
+            
+            
+            //se calculan las k distancias
+            
+            
+            ArrayList<Integer> mejoresVecinos = new ArrayList();
+            
+            for(i = 0; i < this.K; i++){
+                double menorDistancia = Double.MAX_VALUE;
+                for(int j = 0; j < distancias.length; j++){
+                    if(distancias[j] < menorDistancia && !mejoresVecinos.contains(j)){
+                        menorDistancia = distancias[j];
+                        mejoresVecinos.add(i, j);
+                    }
+                }
+                
+            }
+            
+            //sumamos las incidencias
+            HashMap<Elemento, Integer>  incidencias = new HashMap();
+            for(i = 0; i < this.K; i++){
+                int indiceFila = mejoresVecinos.get(i);
+                int indiceUltimaColumna = this.datosTrain[0].length - 1;
+                Elemento clase = this.datosTrain[indiceFila][indiceUltimaColumna];
+                if(incidencias.containsKey(clase)){
+                    int repeticiones = incidencias.get(clase);
+                    incidencias.put(clase, repeticiones + 1);
+                }else{
+                    incidencias.put(clase, 1);
+                }
+            }
+            //cogemos la clase con más incidencias
+            Elemento mejorClase = null;
+            int maxIncidencia = 0;
+            for(Elemento clase : incidencias.keySet()){
+                int incidencia = incidencias.get(clase);
+                if(incidencia > maxIncidencia){
+                    maxIncidencia = incidencia;
+                    mejorClase = clase;
+                }
+            }
+            //insertamos la clase 
+            clases.add(mejorClase);
+            
+        }
+        return clases;
     }
     
 }
