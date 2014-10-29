@@ -51,4 +51,9 @@ public class ElementoContinuo extends Elemento {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    @Override
+    public void setValorContinuo(double valor) {
+        this.valor = valor;
+    }
 } 

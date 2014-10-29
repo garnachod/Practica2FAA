@@ -8,6 +8,7 @@ package datos;
 public  abstract class Elemento{
     public abstract String getValorNominal();
     public abstract double getValorContinuo();
+    public abstract void setValorContinuo(double valor);
     @Override
     public abstract int hashCode();
 

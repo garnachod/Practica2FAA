@@ -6,7 +6,9 @@
 package datos;
 
 public class ElementoNominal extends Elemento {
-    private final String valor;
+    private String valor;
+    private double valorContinuo;
+    
     public ElementoNominal (String valor) {
         this.valor = valor;
     }
@@ -17,7 +19,7 @@ public class ElementoNominal extends Elemento {
     }
     @Override
     public double getValorContinuo() {
-        return 0.0;
+        return this.valorContinuo;
     }
 
     @Override
@@ -47,5 +49,10 @@ public class ElementoNominal extends Elemento {
         } else {
             return 1.0;
         }
+    }
+
+    @Override
+    public void setValorContinuo(double valor) {
+        this.valorContinuo = valor;
     }
 }

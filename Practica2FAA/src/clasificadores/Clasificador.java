@@ -85,6 +85,7 @@ abstract public class Clasificador {
         Clasificador clasificador = new ClasificadorNaiveBayes();
         Clasificador clasificador2 = new ClasificadorNaiveBayesLaplace();
         Clasificador clasificador3 = new ClasificadorKNN();
+        Clasificador clasificador4 = new ClasificadorRegresionLogistica();
         
         // NB
         ArrayList<Double> errores = Clasificador.validacion(estrategia, datos, clasificador);
@@ -97,8 +98,14 @@ abstract public class Clasificador {
         System.out.println("Error medio con NB + Laplace: " + calcularMediaErrores(errores2));
     
         // kNN
-        ArrayList<Double> errores3= Clasificador.validacion(estrategia, datos, clasificador3);
-        System.out.println("Los errores con kNN son: " + errores3);
-        System.out.println("Error medio con kNN: " + calcularMediaErrores(errores3));
+        //ArrayList<Double> errores3= Clasificador.validacion(estrategia, datos, clasificador3);
+        //System.out.println("Los errores con kNN son: " + errores3);
+        //System.out.println("Error medio con kNN: " + calcularMediaErrores(errores3));
+        
+        //regresion logistica
+        ArrayList<Double> errores4= Clasificador.validacion(estrategia, datos, clasificador4);
+        System.out.println("Los errores con regresion logistica son: " + errores4);
+        System.out.println("Error medio con regresion logistica: " + calcularMediaErrores(errores4));
+        
     }
 }
