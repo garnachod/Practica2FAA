@@ -22,19 +22,10 @@ public class ClasificadorKNN extends Clasificador {
     
     @Override
     public void entrenamiento(Datos datosTrain) {
-        // Si aún no se ha entrenado
-        //if (this.datosTrain == null) {
-            this.datosTrain = datosTrain.getDatos();
+
+        this.datosTrain = datosTrain.getDatos();
         
-        // Si ya se ha entrenado, añadir nuevos datos al array
-        //} 
-        /*else {
-            ArrayList <Elemento[]> ambos = new ArrayList<>();
-            Collections.addAll(ambos, this.datosTrain);
-            Collections.addAll(ambos, datosTrain.getDatos());
-            this.datosTrain = ambos.toArray(new Elemento[ambos.size()][]);
-        }*/
-        
+
         // Recalcular máximos y mínimos
         this.maximos = new double[this.datosTrain[0].length];
         this.minimos = new double[this.datosTrain[0].length];
@@ -132,7 +123,6 @@ public class ClasificadorKNN extends Clasificador {
             //se calculan las distacias
             for(Elemento[] filaTrain : this.datosTrain){
                 distancias[i] = this.distancia(filaTest, filaTrain);
-                System.out.println(distancias[i]);
                 i++;
             }
             
