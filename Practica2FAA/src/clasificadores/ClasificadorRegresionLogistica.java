@@ -21,7 +21,7 @@ public class ClasificadorRegresionLogistica extends Clasificador {
     HashMap<Elemento, Double> clasesToContinuo;
     HashMap<Double, Elemento> continuoToClases;
     Double eta = 0.0005;
-    int epocas = 200;
+    int epocas = 2000;
     
     @Override
     public void entrenamiento(Datos datosTrain) {

@@ -44,7 +44,7 @@ abstract public class Clasificador {
         ArrayList<Double> errores = new ArrayList<>();
         
         //Creamos las particiones siguiendo la estrategia llamando a datos.creaParticiones
-        ArrayList<Particion> particiones = part.crearParticiones(datos.getDatos().length, 2);
+        ArrayList<Particion> particiones = part.crearParticiones(datos.getDatos().length,5);
 
         //Para validación cruzada: En un bucle hasta nv entrenamos el clasf con la particion de train i(extraerDatosTrain)
                 // y obtenemos el error en la particion test de i (extraerDatosTest)
@@ -81,11 +81,13 @@ abstract public class Clasificador {
         if (datos == null) {
             return;
         }
-        EstrategiaParticionado estrategia = new DivisionPorcentual();
+        //EstrategiaParticionado estrategia = new DivisionPorcentual();
+        EstrategiaParticionado estrategia = new ValidacionCruzada();
         Clasificador clasificador = new ClasificadorNaiveBayes();
         Clasificador clasificador2 = new ClasificadorNaiveBayesLaplace();
         Clasificador clasificador3 = new ClasificadorKNN();
         Clasificador clasificador4 = new ClasificadorRegresionLogistica();
+     
         
         // NB
         ArrayList<Double> errores = Clasificador.validacion(estrategia, datos, clasificador);
@@ -106,6 +108,8 @@ abstract public class Clasificador {
         ArrayList<Double> errores4= Clasificador.validacion(estrategia, datos, clasificador4);
         System.out.println("Los errores con regresion logistica son: " + errores4);
         System.out.println("Error medio con regresion logistica: " + calcularMediaErrores(errores4));
+        
+        
         
     }
 }
