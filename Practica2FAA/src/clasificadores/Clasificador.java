@@ -98,9 +98,9 @@ abstract public class Clasificador {
         System.out.println("Error medio con NB + Laplace: " + calcularMediaErrores(errores2));
     
         // kNN
-        //ArrayList<Double> errores3= Clasificador.validacion(estrategia, datos, clasificador3);
-        //System.out.println("Los errores con kNN son: " + errores3);
-        //System.out.println("Error medio con kNN: " + calcularMediaErrores(errores3));
+        ArrayList<Double> errores3= Clasificador.validacion(estrategia, datos, clasificador3);
+        System.out.println("Los errores con kNN son: " + errores3);
+        System.out.println("Error medio con kNN: " + calcularMediaErrores(errores3));
         
         //regresion logistica
         ArrayList<Double> errores4= Clasificador.validacion(estrategia, datos, clasificador4);

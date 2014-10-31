@@ -20,8 +20,8 @@ public class ClasificadorRegresionLogistica extends Clasificador {
     ArrayList<Double> planoClasificacion;
     HashMap<Elemento, Double> clasesToContinuo;
     HashMap<Double, Elemento> continuoToClases;
-    Double eta = 0.0001;
-    int epocas = 100;
+    Double eta = 0.0005;
+    int epocas = 200;
     
     @Override
     public void entrenamiento(Datos datosTrain) {
@@ -120,9 +120,7 @@ public class ClasificadorRegresionLogistica extends Clasificador {
     }
     
     private void actualizaPlanoClasificacion(double sigmoidal, Elemento claseDeI, ArrayList<Double> punto){
-        /*if(claseDeI.getValorContinuo() == 1.0){
-            //System.out.println("clase con valor 1");
-        }*/
+        
         double restaSigmoidalClase = sigmoidal - claseDeI.getValorContinuo();
 
         
