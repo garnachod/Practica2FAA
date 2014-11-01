@@ -16,7 +16,7 @@ public class ClasificadorKNN extends Clasificador {
     Elemento datosTrain[][];
     double maximos[];
     double minimos[];
-    int K = 5;
+    int K = 3;
     
     @Override
     public void entrenamiento(Datos datosTrain) {
